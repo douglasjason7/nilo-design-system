@@ -39,7 +39,9 @@ design-system/
 │   ├── NavBar.tsx                 → Responsivo com menu mobile
 │   ├── TestimonialCard.tsx        → Com rating e avatar
 │   ├── PricingCard.tsx            → Com feature list e CTA
-│   └── AccordionFaq.tsx           → Accordion animado
+│   └── AccordionFaq.tsx           → Accordion animado (question/answer ReactNode;
+│                                     defaultOpen, renderIcon e overrides de classe
+│                                     por parte — item/trigger/panel/answer)
 │
 ├── organisms/
 │   ├── HeroSection.tsx            → Badge + headline + CTA + media
