@@ -1,16 +1,31 @@
-import { forwardRef, ButtonHTMLAttributes } from "react";
+import {
+  forwardRef,
+  AnchorHTMLAttributes,
+  ButtonHTMLAttributes,
+  ReactNode,
+  Ref,
+} from "react";
 import { cn } from "../utils/cn";
 
 type Variant = "primary" | "secondary" | "ghost" | "outline" | "accent";
 type Size    = "sm" | "md" | "lg";
 
-interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonOwnProps {
   variant?: Variant;
   size?:    Size;
   loading?: boolean;
-  icon?:    React.ReactNode;
+  icon?:    ReactNode;
   iconPosition?: "left" | "right";
 }
+
+/* Polimórfico: sem `href` renderiza <button> (API original intacta);
+   com `href` renderiza <a> com o mesmo visual/estados. */
+type ButtonAsButton = ButtonOwnProps &
+  ButtonHTMLAttributes<HTMLButtonElement> & { href?: undefined };
+type ButtonAsAnchor = ButtonOwnProps &
+  AnchorHTMLAttributes<HTMLAnchorElement> & { href: string; disabled?: boolean };
+
+export type ButtonProps = ButtonAsButton | ButtonAsAnchor;
 
 const variants: Record<Variant, string> = {
   primary:
@@ -31,7 +46,7 @@ const sizes: Record<Size, string> = {
   lg: "h-12 px-6  text-body-md  gap-2.5",
 };
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
+export const Button = forwardRef<HTMLButtonElement | HTMLAnchorElement, ButtonProps>(
   (
     {
       variant = "primary",
@@ -46,36 +61,62 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     },
     ref
   ) => {
-    const isDisabled = disabled || loading;
+    const isDisabled = Boolean(disabled) || loading;
 
+    const classes = cn(
+      "inline-flex items-center justify-center font-body font-medium rounded-full",
+      "transition-all duration-base ease",
+      "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
+      "disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none",
+      variants[variant],
+      sizes[size],
+      className
+    );
+
+    const content = loading ? (
+      <SpinnerIcon className="w-4 h-4 animate-spin" />
+    ) : (
+      <>
+        {icon && iconPosition === "left" && (
+          <span className="shrink-0">{icon}</span>
+        )}
+        {children}
+        {icon && iconPosition === "right" && (
+          <span className="shrink-0">{icon}</span>
+        )}
+      </>
+    );
+
+    if (props.href !== undefined) {
+      /* <a> não tem :disabled nem atributo disabled — replica o estado
+         via aria-disabled + classes (e bloqueia navegação/tab). */
+      const anchorProps = props as AnchorHTMLAttributes<HTMLAnchorElement>;
+      return (
+        <a
+          {...anchorProps}
+          ref={ref as Ref<HTMLAnchorElement>}
+          aria-disabled={isDisabled || undefined}
+          tabIndex={isDisabled ? -1 : anchorProps.tabIndex}
+          className={cn(
+            classes,
+            "no-underline",
+            isDisabled && "opacity-40 cursor-not-allowed pointer-events-none"
+          )}
+        >
+          {content}
+        </a>
+      );
+    }
+
+    const buttonProps = props as ButtonHTMLAttributes<HTMLButtonElement>;
     return (
       <button
-        ref={ref}
+        {...buttonProps}
+        ref={ref as Ref<HTMLButtonElement>}
         disabled={isDisabled}
-        className={cn(
-          "inline-flex items-center justify-center font-body font-medium rounded-full",
-          "transition-all duration-base ease",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
-          "disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none",
-          variants[variant],
-          sizes[size],
-          className
-        )}
-        {...props}
+        className={classes}
       >
-        {loading ? (
-          <SpinnerIcon className="w-4 h-4 animate-spin" />
-        ) : (
-          <>
-            {icon && iconPosition === "left" && (
-              <span className="shrink-0">{icon}</span>
-            )}
-            {children}
-            {icon && iconPosition === "right" && (
-              <span className="shrink-0">{icon}</span>
-            )}
-          </>
-        )}
+        {content}
       </button>
     );
   }

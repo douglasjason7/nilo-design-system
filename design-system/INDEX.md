@@ -26,7 +26,7 @@ design-system/
 │   └── nilo-design-system-logotype-positive.svg → Logo Nilo® — versão positiva (black-on-light)
 │
 ├── atoms/
-│   ├── Button.tsx                 → 5 variantes, 3 tamanhos, loading state
+│   ├── Button.tsx                 → 5 variantes, 3 tamanhos, loading state; com `href` vira <a> (mesmo visual/estados)
 │   ├── Badge.tsx                  → 6 variantes, dot indicator
 │   ├── Logo.tsx                   → full / symbol / wordmark, 4 tamanhos
 │   ├── Typography.tsx             → Display, Heading, Body, Label, Caption
