@@ -72,6 +72,49 @@ design-system/
 
 ---
 
+## Consumo como pacote (outro projeto da pasta/monorepo)
+
+O nilo é consumível direto do fonte (TS/TSX) por projetos com bundler (Vite, Astro, Next):
+
+```bash
+# no projeto consumidor
+npm install ../../nilo   # dependência file: → symlink
+```
+
+Entrypoints expostos (`package.json → exports`):
+
+| Import | Conteúdo |
+|---|---|
+| `nilo-design-system` | Todos os componentes (atoms + molecules + organisms + marketing + templates) e `cn` — via `design-system/index.ts` |
+| `nilo-design-system/preset` | **Preset Tailwind** com o theme reconciliado Kemet (`tailwind/preset.js`) — use em `presets: [...]`, não redefina cores |
+| `nilo-design-system/tokens.css` | Variáveis CSS (dark + light) |
+| `nilo-design-system/components.css` | Classes `ds-*` (`@layer components`) |
+| `nilo-design-system/tokens.json` | Tokens W3C/Style Dictionary |
+
+Requisitos do consumidor: React 18 (peer dependency), Tailwind 3, e incluir o caminho do pacote no `content` do Tailwind:
+
+```js
+// tailwind.config.mjs do consumidor
+import niloPreset from "nilo-design-system/preset";
+export default {
+  presets: [niloPreset],
+  content: [
+    "./src/**/*.{astro,html,js,jsx,ts,tsx,mdx}",
+    "./node_modules/nilo-design-system/design-system/**/*.{js,ts,jsx,tsx}",
+  ],
+};
+```
+
+```css
+/* CSS global do consumidor */
+@import "nilo-design-system/tokens.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+---
+
 ## Quickstart
 
 ### 1. Instalar dependências
