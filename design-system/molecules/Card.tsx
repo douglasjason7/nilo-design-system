@@ -1,7 +1,7 @@
 import { HTMLAttributes } from "react";
 import { cn } from "../utils/cn";
 
-type CardVariant = "default" | "elevated" | "outlined" | "ghost";
+type CardVariant = "default" | "elevated" | "outlined" | "ghost" | "glass";
 
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
   variant?:  CardVariant;
@@ -14,6 +14,7 @@ const variants: Record<CardVariant, string> = {
   elevated: "bg-elevated border border-border shadow-md",
   outlined: "bg-transparent border border-border",
   ghost:    "bg-transparent",
+  glass:    "bg-white/[0.07] backdrop-blur-glass border border-[rgba(184,132,255,0.16)] shadow-glass",
 };
 
 const paddings = {

@@ -178,3 +178,29 @@ Adicionadas as variáveis de letter-spacing `--ls-tighter/tight/normal/wide/wide
    contrastes e estados hover/pressed dos atoms devem ser conferidos numa próxima tarefa.
 9. **Docs/Figma do nilo** (`design-system/docs`, `design-system/figma`) podem citar orchid
    e Inter — desatualizados, fora do escopo desta tarefa (só tokens).
+
+---
+
+## Receitas de efeito (teardown cosmoq → Kemet)
+
+Efeitos visuais premium destilados do `cosmoq.framer.website` e remapeados para a
+cromática Kemet. **Técnica preservada, cor trocada.** Tokens em `tokens.css` (bloco
+`EFFECTS`), escala Tailwind em `preset.js`, classes em `components.css`, componentes em
+`atoms/` (`GlassPanel`, `NoiseOverlay`, `Aurora`, `Reveal`) + variante `glass` no `Card`.
+
+| Papel (cosmoq) | Valor original | → Kemet |
+|---|---|---|
+| Acento frio | azul `#0175ff` | royal `#7B2CBF` (`--accent`) |
+| Acento quente | âmbar `#ffac0a` | sun `#F26419` |
+| Highlight creme | `#ffcd7d` | papyrus `#FAF8F2` / sun-200 |
+| Aro de vidro | `rgba(125,164,255,.16)` | royal-300 α `rgba(184,132,255,.16)` |
+| Halo de CTA | `rgba(255,179,73,.25)` | sun α `rgba(242,100,25,.28)` |
+| Gradiente-assinatura | `148deg azul→âmbar` | `148deg royal→sun` |
+
+Receitas entregues: **glass** (`--glass-*`, `.ds-glass`, `backdrop-blur-glass`), **noise**
+(feTurbulence SVG a ~0.12 com máscara de fade — sem asset externo), **gradientes de marca**
+(`bg-gradient-brand/-alt/-metallic`, `.ds-gradient-text`, `.ds-border-gradient`), **light**
+(`shadow-halo`, `shadow-float`, `shadow-glow-dual`, `.ds-orb`, `Aurora`), **motion**
+(`ease-cinematic`/`ease-hero`, `animate-fade-up-blur`, componente `Reveal` on-scroll).
+Como parte da frente, removido o resíduo da paleta orchid (`#c084fc`/`rgba(192,132,252)`)
+das classes `.ds-glow-accent` e `.ds-gradient-text`.
