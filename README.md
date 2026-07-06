@@ -24,16 +24,16 @@ Atomic design system para a marca Nilo® — React + TypeScript + Tailwind CSS, 
 ```
 design-system/
 ├── tokens/        ─ Variáveis CSS, JSON W3C/Style Dictionary
-├── atoms/         ─ 13 primitives (Button, Input, Badge, Logo…)
-├── molecules/     ─ 10 composições (Card, NavBar, Tabs, Modal…)
-├── organisms/     ─ 13 seções (Hero, Footer, Sidebar, Table…)
-├── marketing/     ─ 6 blocos (CtaBanner, LogoBar, FeatureGrid…)
+├── atoms/         ─ 18 primitives (Button, Input, Badge, Chip, Progress, StatusIndicator…)
+├── molecules/     ─ 16 composições (Card, Tabs, InputGroup, Menu, BigNumber, Snackbar…)
+├── organisms/     ─ 17 seções (Hero, Sidebar, Table, Dialog, Carousel, DatePicker…)
+├── marketing/     ─ 6 blocos (CtaBanner, LogoBar, FeatureGrid, StatsRow…)
 ├── templates/     ─ Landing page completa
 ├── figma/         ─ Documentação da arquitetura no Figma
 └── tailwind/      ─ Config + classes utilitárias
 ```
 
-Filosofia: **Atomic Design** (Brad Frost). Cada nível depende apenas dos níveis anteriores — nenhum componente importa de um nível superior.
+Filosofia: **Atomic Design** (Brad Frost). Cada nível depende apenas dos níveis anteriores — nenhum componente importa de um nível superior. Todos os component sets da biblioteca `_Lib` do Figma têm equivalente em código.
 
 ---
 
