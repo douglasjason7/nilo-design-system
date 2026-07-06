@@ -1,5 +1,5 @@
 /* ============================================================
-   TAILWIND COMPONENT LAYER — Orchid Design System
+   TAILWIND COMPONENT LAYER — Nilo Design System (Kemet)
    Utilitários compostos prontos para uso como classes CSS
    ============================================================ */
 
@@ -20,7 +20,7 @@
 
   /* ── SURFACE ── */
   .ds-card {
-    @apply rounded-xl bg-[#141414] border border-[#2A2A2A];
+    @apply rounded-xl bg-surface border border-border;
     @apply transition-all duration-base ease;
   }
 
@@ -29,7 +29,7 @@
   }
 
   .ds-card-elevated {
-    @apply rounded-xl bg-[#1E1E1E] border border-[#2A2A2A] shadow-md;
+    @apply rounded-xl bg-elevated border border-border shadow-md;
   }
 
   .ds-card-accent {
@@ -107,8 +107,8 @@
   }
 
   /* ── DIVIDER ── */
-  .ds-divider-h { @apply h-px w-full bg-[#2A2A2A]; }
-  .ds-divider-v { @apply w-px self-stretch bg-[#2A2A2A]; }
+  .ds-divider-h { @apply h-px w-full bg-border; }
+  .ds-divider-v { @apply w-px self-stretch bg-border; }
 
   /* ── SECTION HEADER ── */
   .ds-section-header {
@@ -124,23 +124,70 @@
   .ds-fade-in   { @apply animate-fade-in opacity-0; }
   .ds-scale-in  { @apply animate-scale-in opacity-0; }
 
+  /* Blur-reveal (assinatura de entrada do teardown cosmoq) */
+  .ds-reveal      { @apply animate-fade-up-blur; }
+  .ds-reveal-hero { @apply animate-fade-up-blur-hero; }
+
+  /* ── GLASS (frosted) ──
+     Superfície translúcida com aro royal + brilho interno. Requer um
+     fundo/imagem atrás para o backdrop-filter ter o que desfocar. */
+  .ds-glass {
+    @apply rounded-xl;
+    background-color: var(--glass-bg);
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-highlight);
+  }
+  /* modificador: usar junto de .ds-glass para um vidro mais presente */
+  .ds-glass-strong { background-color: var(--glass-bg-strong); }
+  .ds-glass-hover  { @apply transition-all duration-base ease; }
+  .ds-glass-hover:hover {
+    background-color: var(--glass-bg-strong);
+    border-color: rgba(184, 132, 255, 0.28);
+  }
+
   /* ── GLOW EFFECTS ── */
   .ds-glow-accent {
     @apply shadow-accent;
-    filter: drop-shadow(0 0 32px rgba(192, 132, 252, 0.15));
+    filter: drop-shadow(0 0 32px rgba(123, 44, 191, 0.20));  /* royal.500 α */
   }
+  .ds-glow-halo { box-shadow: var(--glow-halo); }            /* halo sun sob CTAs */
+  .ds-glow-dual { box-shadow: var(--glow-dual); }            /* inner royal + cream */
+  .ds-shadow-float { box-shadow: var(--shadow-float); }      /* elevação flutuante */
 
-  /* ── GRADIENT TEXT ── */
+  /* ── ORB (blob de luz de fundo desfocado) ── */
+  .ds-orb {
+    @apply pointer-events-none absolute rounded-full;
+    z-index: var(--z-below);
+    filter: blur(60px);
+  }
+  .ds-orb-royal { background: radial-gradient(circle, rgba(123,44,191,0.55) 0%, transparent 70%); }
+  .ds-orb-sun   { background: radial-gradient(circle, rgba(242,100,25,0.45) 0%, transparent 70%); }
+
+  /* ── GRADIENT (marca: royal→sun) ── */
   .ds-gradient-text {
-    @apply bg-gradient-to-r from-neutral-50 via-accent-300 to-accent-500;
-    @apply bg-clip-text text-transparent;
+    @apply bg-gradient-brand bg-clip-text text-transparent;
+  }
+  /* Borda com gradiente de marca (padding-box + border-box) */
+  .ds-border-gradient {
+    border: 1px solid transparent;
+    background:
+      linear-gradient(var(--bg-surface), var(--bg-surface)) padding-box,
+      var(--gradient-brand) border-box;
   }
 
-  /* ── NOISE OVERLAY ── */
+  /* ── NOISE OVERLAY ──
+     Grão via feTurbulence (sem asset externo). Presença ~0.12 com
+     máscara de fade vertical (adensa de cima→baixo), como no cosmoq. */
   .ds-noise {
     @apply pointer-events-none;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    background-size: 128px 128px;
+    background-repeat: repeat;
+    opacity: 0.12;
+    -webkit-mask-image: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 15%, rgba(0,0,0,0.98) 32%, #000 100%);
+    mask-image: linear-gradient(180deg, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.35) 15%, rgba(0,0,0,0.98) 32%, #000 100%);
   }
 
 }

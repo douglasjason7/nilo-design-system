@@ -114,12 +114,30 @@ const preset = {
         md:     "var(--shadow-md)",
         lg:     "var(--shadow-lg)",
         accent: "var(--shadow-accent)",
+        /* Efeitos premium (teardown cosmoq → Kemet). Ver tokens.css → EFFECTS. */
+        float:      "var(--shadow-float)",   // elevação flutuante multicamada
+        halo:       "var(--glow-halo)",      // halo sun sob CTAs
+        "glow-dual":"var(--glow-dual)",      // inner glow royal + cream nos cards
+        glass:      "var(--glass-highlight)",// highlight interno do vidro
+      },
+      backgroundImage: {
+        /* Gradientes de marca — frio→quente (royal→sun). Ver tokens.css → EFFECTS. */
+        "gradient-brand":    "var(--gradient-brand)",
+        "gradient-brand-alt":"var(--gradient-brand-alt)",
+        "gradient-metallic": "var(--gradient-metallic)",
+        "gradient-glass":    "var(--gradient-glass)",
+      },
+      backdropBlur: {
+        glass: "var(--glass-blur)",          // 10px — frosted glass
       },
       transitionTimingFunction: {
-        DEFAULT: "var(--ease-default)",
-        in:      "var(--ease-in)",
-        out:     "var(--ease-out)",
-        spring:  "var(--ease-spring)",
+        DEFAULT:   "var(--ease-default)",
+        in:        "var(--ease-in)",
+        out:       "var(--ease-out)",
+        spring:    "var(--ease-spring)",
+        /* Assinaturas de movimento do cosmoq (tween, sem spring) */
+        cinematic: "cubic-bezier(0.12, 0.23, 0.5, 1)",  // ease-out suave (padrão dos reveals)
+        hero:      "var(--ease-hover)",                 // cubic-bezier(0.16,1,0.3,1) — reveals de hero
       },
       transitionDuration: {
         fast:  "var(--duration-fast)",
@@ -132,12 +150,20 @@ const preset = {
         "fade-in":  { "0%": { opacity: "0" }, "100%": { opacity: "1" } },
         "scale-in": { "0%": { opacity: "0", transform: "scale(0.95)" }, "100%": { opacity: "1", transform: "scale(1)" } },
         marquee:    { "0%": { transform: "translateX(0)" }, "100%": { transform: "translateX(-50%)" } },
+        /* Blur-reveal — assinatura de entrada do cosmoq (fade + rise + desfoque→nítido) */
+        "fade-up-blur": {
+          "0%":   { opacity: "0", transform: "translateY(24px)", filter: "blur(10px)" },
+          "100%": { opacity: "1", transform: "translateY(0)",    filter: "blur(0)" },
+        },
       },
       animation: {
         "fade-up":  "fade-up 0.4s var(--ease-out) forwards",
         "fade-in":  "fade-in 0.25s var(--ease-out) forwards",
         "scale-in": "scale-in 0.25s var(--ease-spring) forwards",
         marquee:    "marquee 30s linear infinite",
+        /* Reveal cinematográfico: padrão 0.6s / hero 1.2s (easings do teardown) */
+        "fade-up-blur":      "fade-up-blur 0.6s cubic-bezier(0.12,0.23,0.5,1) forwards",
+        "fade-up-blur-hero": "fade-up-blur 1.2s var(--ease-hover) forwards",
       },
       maxWidth: { container: "1280px" },
       zIndex: {

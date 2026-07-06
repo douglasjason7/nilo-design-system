@@ -207,6 +207,39 @@
   --container-px-tablet:  2.5rem;   /* 40px · spacing.7 */
   --container-px-desktop: 5rem;     /* 80px · spacing.9 */
 
+  /* ── EFFECTS: glass · glow · gradient ──
+     Receitas premium destiladas do teardown do cosmoq.framer.website,
+     remapeadas para a cromática Kemet (royal/sun/cream sobre onyx).
+     Mantêm a técnica do original; trocam o azul/âmbar por royal/sun. */
+
+  /* Frosted glass — superfície translúcida com aro royal + brilho interno */
+  --glass-bg:         rgba(255, 255, 255, 0.07);           /* vidro sutil */
+  --glass-bg-strong:  rgba(255, 255, 255, 0.10);           /* vidro presente */
+  --glass-border:     rgba(184, 132, 255, 0.16);           /* royal.300 α — aro frio */
+  --glass-highlight:  inset 0 0 2px 1px rgba(255,255,255,0.40); /* highlight no topo */
+  --glass-blur:       10px;                                 /* backdrop-filter blur */
+
+  /* Glow / halo / dual-glow (iluminação de acento) */
+  --glow-halo:  0 6px 24px 0 rgba(242, 100, 25, 0.28);     /* halo sun sob CTAs */
+  --glow-dual:  inset -4px 3px 9px 0 rgba(123,44,191,0.90),/* royal (canto sup-esq) */
+                inset 3px -2px 8px 0 rgba(250,248,242,0.55);/* cream (canto inf-dir) */
+  --glow-royal: 0 0 60px rgba(123, 44, 191, 0.45);         /* orb/aura royal (= shadow-accent) */
+  --glow-sun:   0 0 60px rgba(242, 100, 25, 0.35);         /* orb/aura sun */
+
+  /* Sombra flutuante multicamada (elevação realista — 5 stops, base onyx) */
+  --shadow-float:
+    0 0.8px 0.8px  -0.75px rgba(10,10,10,0.20),
+    0 2.3px 2.3px  -1.5px  rgba(10,10,10,0.19),
+    0 5px   5px    -2.25px rgba(10,10,10,0.17),
+    0 11px  11px   -3px    rgba(10,10,10,0.13),
+    0 28px  28px   -3.75px rgba(10,10,10,0.06);
+
+  /* Gradientes de marca (frio→quente = royal→sun; assinatura Kemet) */
+  --gradient-brand:     linear-gradient(148deg, #7B2CBF 0%, #F26419 100%);
+  --gradient-brand-alt: linear-gradient(90deg,  #FAF8F2 0%, #7B2CBF 100%);
+  --gradient-metallic:  linear-gradient(40deg,  #FFB888 0%, #141414 45%, #9854E5 100%);
+  --gradient-glass:     linear-gradient(180deg, rgba(255,254,250,0) 0%, rgba(255,255,255,0.07) 100%);
+
   /* ── SEMANTIC ALIASES: Dark Theme (default) ── */
   --bg:               var(--color-neutral-950);  /* onyx.950 */
   --bg-surface:       var(--color-neutral-900);  /* onyx.900 */
