@@ -1,4 +1,8 @@
 export { AppShell, AppHeader } from "./AppShell";
+export { Carousel } from "./Carousel";
+export { DatePicker } from "./DatePicker";
+export type { DatePickerProps, DateRange } from "./DatePicker";
+export { Dialog } from "./Dialog";
 export { Dropdown } from "./Dropdown";
 export { FaqSection } from "./FaqSection";
 export { FooterSection } from "./FooterSection";
@@ -11,4 +15,6 @@ export { Stepper } from "./Stepper";
 export { Table } from "./Table";
 export type { Column } from "./Table";
 export { TestimonialsSection } from "./TestimonialsSection";
+export { TimePicker } from "./TimePicker";
+export type { TimePickerProps } from "./TimePicker";
 export { WorksGrid } from "./WorksGrid";
