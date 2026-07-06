@@ -25,30 +25,48 @@ design-system/
 │   ├── nilo-design-system-logotype.svg          → Logo Nilo® — versão negativa (cream-on-dark)
 │   └── nilo-design-system-logotype-positive.svg → Logo Nilo® — versão positiva (black-on-light)
 │
-├── atoms/
-│   ├── Button.tsx                 → 5 variantes, 3 tamanhos, loading state
+├── atoms/                         (18 primitives)
+│   ├── Button.tsx                 → 5 variantes, 3 tamanhos, loading; com `href` vira <a>
 │   ├── Badge.tsx                  → 6 variantes, dot indicator
+│   ├── Chip.tsx                   → assist / filter / input; selected, leadingIcon, onDismiss
+│   ├── Tag.tsx                    → Filter tag interativo (simples)
+│   ├── Input.tsx                  → Com label, hint, error, icon
+│   ├── Select.tsx / Checkbox.tsx / Radio.tsx / Toggle.tsx → form controls + estados
+│   ├── Tooltip.tsx               → 4 placements
+│   ├── Spinner.tsx               → sm/md/lg
+│   ├── ProgressLinear.tsx        → barra 0–100, tones accent/success/warning/error
+│   ├── ProgressCircular.tsx      → anel SVG 0–100, tones, showValue
+│   ├── StatusIndicator.tsx       → online/offline/pending/degraded/maintenance × compact/standard/full
+│   ├── InlineFeedback.tsx        → validação inline info/success/warning/error
 │   ├── Logo.tsx                   → full / symbol / wordmark, 4 tamanhos
 │   ├── Typography.tsx             → Display, Heading, Body, Label, Caption
-│   ├── Input.tsx                  → Com label, hint, error, icon
-│   ├── Tag.tsx                    → Filter tag interativo
 │   └── Divider.tsx                → Horizontal e vertical
 │
-├── molecules/
+├── molecules/                     (16 composições)
 │   ├── Card.tsx                   → Base + ProjectCard + ServiceCard
+│   ├── MediaCard.tsx              → mídia image/video × layout top/left, CTA opcional
+│   ├── BigNumber.tsx              → KPI com tone e trend up/down
+│   ├── InputGroup.tsx             → input com addons leading/trailing/both + estados
+│   ├── FormGroup.tsx              → wrapper label/hint/erro
+│   ├── Menu.tsx                   → painel de menu (default/compact), MenuItem + separador
+│   ├── Tabs.tsx / Breadcrumb.tsx / Pagination.tsx → navegação
+│   ├── Alert.tsx                  → info/success/warning/error, onClose
+│   ├── Snackbar.tsx               → toast variante + ação + dismiss
 │   ├── NavBar.tsx                 → Responsivo com menu mobile
-│   ├── TestimonialCard.tsx        → Com rating e avatar
-│   ├── PricingCard.tsx            → Com feature list e CTA
-│   └── AccordionFaq.tsx           → Accordion animado
+│   ├── Toolbar.tsx                → horizontal/vertical, densidade (+ ToolbarDivider)
+│   ├── TestimonialCard.tsx / PricingCard.tsx
+│   └── AccordionFaq.tsx           → Accordion animado (question/answer ReactNode; defaultOpen…)
 │
-├── organisms/
-│   ├── HeroSection.tsx            → Badge + headline + CTA + media
-│   ├── ServicesSection.tsx        → Grid de serviços (2–4 colunas)
-│   ├── WorksGrid.tsx              → Portfolio com filtro por categoria
-│   ├── TestimonialsSection.tsx    → Grid e carousel
-│   ├── PricingSection.tsx         → Suporte a N tiers
-│   ├── FaqSection.tsx             → Layout centered e split
-│   └── FooterSection.tsx          → Multi-coluna com socials
+├── organisms/                     (17 seções + app shell)
+│   ├── HeroSection.tsx / ServicesSection.tsx / PricingSection.tsx / FaqSection.tsx
+│   ├── WorksGrid.tsx / TestimonialsSection.tsx / FooterSection.tsx
+│   ├── AppShell.tsx (+AppHeader) / Sidebar.tsx  → shell de aplicação
+│   ├── Dropdown.tsx / Modal.tsx / Dialog.tsx     → overlays (Dialog = confirm default/destructive/success)
+│   ├── Carousel.tsx               → track + setas (solid/ghost) + dots, teclado
+│   ├── DatePicker.tsx             → calendário date/range, PT-BR (+DateRange)
+│   ├── TimePicker.tsx             → seleção HH:mm, minuteStep, 24h/12h
+│   ├── Stepper.tsx               → passos numerados
+│   └── Table.tsx                  → colunas tipadas (Column), header/zebra/hover
 │
 ├── marketing/
 │   ├── CtaBanner.tsx              → 3 variantes (dark, accent, full-bleed)
@@ -68,6 +86,49 @@ design-system/
 │
 └── utils/
     └── cn.ts                      → clsx + tailwind-merge helper
+```
+
+---
+
+## Consumo como pacote (outro projeto da pasta/monorepo)
+
+O nilo é consumível direto do fonte (TS/TSX) por projetos com bundler (Vite, Astro, Next):
+
+```bash
+# no projeto consumidor
+npm install ../../nilo   # dependência file: → symlink
+```
+
+Entrypoints expostos (`package.json → exports`):
+
+| Import | Conteúdo |
+|---|---|
+| `nilo-design-system` | Todos os componentes (atoms + molecules + organisms + marketing + templates) e `cn` — via `design-system/index.ts` |
+| `nilo-design-system/preset` | **Preset Tailwind** com o theme reconciliado Kemet (`tailwind/preset.js`) — use em `presets: [...]`, não redefina cores |
+| `nilo-design-system/tokens.css` | Variáveis CSS (dark + light) |
+| `nilo-design-system/components.css` | Classes `ds-*` (`@layer components`) |
+| `nilo-design-system/tokens.json` | Tokens W3C/Style Dictionary |
+
+Requisitos do consumidor: React 18 (peer dependency), Tailwind 3, e incluir o caminho do pacote no `content` do Tailwind:
+
+```js
+// tailwind.config.mjs do consumidor
+import niloPreset from "nilo-design-system/preset";
+export default {
+  presets: [niloPreset],
+  content: [
+    "./src/**/*.{astro,html,js,jsx,ts,tsx,mdx}",
+    "./node_modules/nilo-design-system/design-system/**/*.{js,ts,jsx,tsx}",
+  ],
+};
+```
+
+```css
+/* CSS global do consumidor */
+@import "nilo-design-system/tokens.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 ```
 
 ---

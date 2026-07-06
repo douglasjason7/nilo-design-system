@@ -1,12 +1,17 @@
 export { Badge } from "./Badge";
 export { Button } from "./Button";
 export { Checkbox } from "./Checkbox";
+export { Chip } from "./Chip";
 export { Divider } from "./Divider";
+export { InlineFeedback } from "./InlineFeedback";
 export { Input } from "./Input";
 export { Logo } from "./Logo";
+export { ProgressCircular } from "./ProgressCircular";
+export { ProgressLinear } from "./ProgressLinear";
 export { Radio, RadioGroup } from "./Radio";
 export { Select } from "./Select";
 export { Spinner } from "./Spinner";
+export { StatusIndicator } from "./StatusIndicator";
 export { Tag } from "./Tag";
 export { Toggle } from "./Toggle";
 export { Tooltip } from "./Tooltip";
