@@ -1,3 +1,5 @@
+"use client";
+
 import { KeyboardEvent, ReactNode, useState } from "react";
 import { cn } from "../utils/cn";
 

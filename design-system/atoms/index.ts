@@ -17,6 +17,7 @@ export { Select } from "./Select";
 export { Spinner } from "./Spinner";
 export { StatusIndicator } from "./StatusIndicator";
 export { Tag } from "./Tag";
+export { Textarea } from "./Textarea";
 export { Toggle } from "./Toggle";
 export { Tooltip } from "./Tooltip";
 export { Body, Caption, Display, Heading, Label, Text, typographyStyles } from "./Typography";
