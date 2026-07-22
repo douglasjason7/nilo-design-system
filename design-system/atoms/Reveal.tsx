@@ -1,3 +1,5 @@
+"use client";
+
 import { HTMLAttributes, useEffect, useRef, useState } from "react";
 
 interface RevealProps extends HTMLAttributes<HTMLDivElement> {
